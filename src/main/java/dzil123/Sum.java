@@ -7,10 +7,6 @@ public class Sum extends Associative {
         super(term1, term2);
     }
 
-    public static Derivable chain(Derivable term1, Derivable[] terms) {
-        return chain(Sum.class, term1, terms);
-    }
-
     public static Derivable chain(Derivable[] terms) {
         return chain(Sum.class, terms);
     }

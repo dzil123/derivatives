@@ -7,39 +7,9 @@ public class Product extends Associative {
         super(term1, term2);
     }
 
-    public static Derivable chain(Derivable term1, Derivable[] terms) {
-        return chain(Product.class, term1, terms);
-    }
-
     public static Derivable chain(Derivable[] terms) {
         return chain(Product.class, terms);
     }
-    
-    // public static Derivable Product(Derivable term1, Derivable[] terms) {
-    //     if (terms.length == 0) {
-    //         return term1;
-    //     } else if (terms.length == 1) {
-    //         return new Product(term1, terms[0]);
-    //     }
-
-    //     return new Product(term1, Product.Product(terms));
-
-    // }
-
-    // public static Derivable Product(Derivable[] terms) {
-    //     if (terms.length == 0) {
-    //         return new Constant(1);
-    //     } else if (terms.length == 1) {
-    //         return terms[0];
-    //     } else if (terms.length == 2) {
-    //         return new Product(terms[0], terms[1]);
-    //     }
-
-    //     Product firstTwoTerms = new Product(terms[0], terms[1]);
-    //     Derivable[] restOfTerms = Arrays.copyOfRange(terms, 2, terms.length);
-
-    //     return Product.Product(firstTwoTerms, restOfTerms);
-    // }
 
     public Derivable derive() {
         // Product rule: (uv)' = (uv') + (vu')
