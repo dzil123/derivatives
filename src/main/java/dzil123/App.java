@@ -12,17 +12,20 @@ public class App {
         System.out.println(derive.derive().simplify());
         System.out.println();
     }
-
-    public static void main(String[] args) {
-
+    
+    public static void testParser(String input) {
         Polish parser = new Polish();
-        //Scanner input = new Scanner(System.in);
-        //Scanner input = new Scanner("x 1 ^ 4 * 5 x * + ; ");
-        Scanner input = new Scanner("1 1 + 2 + 3 1 1 + 7 - 15 / * - ;");
+        Scanner reader = new Scanner(input);
 
-        parser.parseTokenLoop(input);
+        parser.parseTokenLoop(reader);
 
         derive(parser.getResult());
+    }
+
+    public static void main(String[] args) {
+        String input = "x 3 ^ ;";
+
+        testParser(input);
         
         // Constant a = new Constant(3);
         // Constant b = new Constant(2);
