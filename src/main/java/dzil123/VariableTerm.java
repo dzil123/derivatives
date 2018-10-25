@@ -11,7 +11,7 @@ public class VariableTerm extends Exponent{
 	}
 
 	private void changeExponent(int change) {
-		this.exponent = new Constant((int) (this.exponent.value + change));
+		this.exponent = new Constant((int) ( ((Constant)(this.exponent)) .value + change));
 	}
 
 	public boolean canSimplify(Variable other) {
