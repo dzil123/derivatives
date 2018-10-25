@@ -21,15 +21,20 @@ public class Sum extends Associative {
     }
 
     public Derivable simplify() {
-        if (this.term1.isZero()) {
-            return this.term2.simplify();
-        } else if (this.term2.isZero()) {
-            return this.term1.simplify();
-        } else if (this.term1.equals(this.term2)) {
-            return new Product(new Constant(2), this.term1.simplify());
+        Derivable term1 = this.term1.simplify();
+        Derivable term2 = this.term2.simplify();
+        
+        if (term1.isZero()) {
+            return term2;
+        } else if (term2.isZero()) {
+            return term1;
+        } else if ( (term1 instanceof Constant) && (term2 instanceof Constant)) {
+            return new Constant( ((Constant)term1).value + ((Constant)term2).value );
+        } else if (term1.equals(term2)) {
+            return new Product(new Constant(2), term1);
         }
 
-        return new Sum(this.term1.simplify(), this.term2.simplify());
+        return new Sum(term1, term2);
     }
 
     public boolean isZero() {
