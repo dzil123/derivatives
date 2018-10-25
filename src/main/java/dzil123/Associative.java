@@ -13,35 +13,32 @@ public abstract class Associative extends Derivable {
     }
 
     protected static Derivable chain(Class <? extends Associative> type, Derivable[] terms) {
-        return Associative.chain(Associative.getSubclassConstructor(type), terms);
-    }
+        Constructor<? extends Associative> constructor = null;
+        
+        try {
+            constructor = type.getConstructor(Derivable.class, Derivable.class);
+        } catch (NoSuchMethodException e) {e.printStackTrace();}
+        
+        
+        if (terms.length == 0) {
+            return new Constant(1);
+        } else if (terms.length == 1) {
+            return terms[0];
+        }
+        
+        
+        try {
 
-    public static Constructor<?> getSubclassConstructor(Class <? extends Associative> type) {
-        try { // shut up java
-            // return new Object() { }.getClass().getEnclosingClass().getConstructor(Derivable.class, Derivable.class);
-            // return Product.class.getConstructor(Derivable.class, Derivable.class);
-            return type.getConstructor(Derivable.class, Derivable.class);
-        } catch (NoSuchMethodException e) {e.printStackTrace(); System.exit(1);}
-        return null; // Will never run, just neccesarry to get java to shut up
-    }
+            Derivable result = (Derivable)constructor.newInstance(terms[0], terms[1]);
 
-    private static Derivable chain(Constructor<?> constuctor, Derivable[] terms) {
-        try { // shut up java
-
-            if (terms.length == 0) {
-                return new Constant(1);
-            } else if (terms.length == 1) {
-                return terms[0];
-            } else if (terms.length == 2) {
-                return (Derivable) constuctor.newInstance(terms[0], terms[1]);
+            for (int index = 2; index < terms.length; index++) {
+                result = (Derivable)constructor.newInstance(result, terms[index]); // (((a*b)*c)*d)
             }
 
-            Derivable firstTerm = terms[0];
-            Derivable[] restOfTerms = Arrays.copyOfRange(terms, 1, terms.length);
-            
-            return (Derivable) constuctor.newInstance(firstTerm, Associative.chain(constuctor, restOfTerms));
-
+            return result;
+        
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {e.printStackTrace();}
-        return null; // Will never run, just neccesarry to get java to shut up
+        
+        return null; // Won't run
     }
 }
