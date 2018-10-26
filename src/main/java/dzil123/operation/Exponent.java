@@ -66,14 +66,19 @@ public class Exponent extends Derivable {
 			Arrays.fill(terms, this.base.simplify());
 			simplification = Product.chain(terms);
 		} else if (base instanceof Constant) {
-			return this;
+			return new Exponent(base, exponent);
 		}
 		
 		return simplification.simplify();
 	}
 
 	public List<Variable> deChain() {
-		return this.simplify().deChain();
+		Derivable simplification = this.simplify();
+		if (!(simplification instanceof Exponent)) {
+			return simplification.deChain();
+		}
+		
+		throw new RuntimeException(); // TODO
 	}
 	
 	public Boolean equal(Derivable other) {
@@ -83,7 +88,7 @@ public class Exponent extends Derivable {
 			boolean exponentE =  this.exponent.equals(exp.exponent);
 			boolean result = baseE && exponentE;
 			if (!result) {
-				// Todo
+				// TODO
 			}
 			return true;
 		}
