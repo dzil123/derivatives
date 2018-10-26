@@ -1,6 +1,10 @@
-package dzil123;
+package dzil123.operation;
 
 import java.util.*;
+
+import dzil123.*;
+import dzil123.helpers.Associative;
+import dzil123.variable.Variable;
 
 public class Sum extends Associative {
     public Sum(Derivable term1, Derivable term2) {

@@ -2,8 +2,11 @@ package dzil123;
 
 import java.util.*;
 
+import dzil123.operation.*;
+import dzil123.variable.*;
+
 public class Monomial extends Derivable {
-    List<Variable> terms;
+    public List<Variable> terms;
     
     public Monomial(Variable[] terms) {
         this(Arrays.asList(terms));
@@ -47,13 +50,9 @@ public class Monomial extends Derivable {
             }
         }
 
-
-
         return variableTerms.toArray(new VariableTerm[]{});
     }
-
     
-
     public Derivable derive() {
         return this.simplify().derive();
     }

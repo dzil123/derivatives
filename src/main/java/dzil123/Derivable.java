@@ -2,8 +2,10 @@ package dzil123;
 
 import java.util.List;
 
+import dzil123.variable.Variable;
+
 public abstract class Derivable {
-    public boolean simplest = false;
+    public final boolean simplest = false;
 
     public Derivable derive() { return new Constant(1); }
     public String toString() { return " "; }

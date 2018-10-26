@@ -1,10 +1,12 @@
-package dzil123;
+package dzil123.variable;
 
 import java.util.*;
 
+import dzil123.*;
+
 public class Variable extends Derivable{
-    public boolean simplest = true;
-    String repr;
+    public final boolean simplest = true;
+    public final String repr;
 
     public Variable() {
         this.repr = "?";

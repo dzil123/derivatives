@@ -1,13 +1,16 @@
-package dzil123;
+package dzil123.operation;
 
 import java.util.*;
 
+import dzil123.*;
+import dzil123.variable.Variable;
+
 public class Exponent extends Derivable {
-    Derivable exponent;
-    Derivable base;
+    public final Derivable exponent;
+    public final Derivable base;
 
     protected Exponent() {
-
+        this(new Constant(0), new Constant(0));
     }
 
     public Exponent(Derivable base, Derivable exponent) {

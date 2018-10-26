@@ -3,6 +3,8 @@ package dzil123.input;
 import java.util.*;
 
 import dzil123.*;
+import dzil123.operation.*;
+import dzil123.variable.X;
 
 public class Polish {
     private Stack<Derivable> tokens;
@@ -52,7 +54,7 @@ public class Polish {
                 case '^':
                     token2 = this.getToken();
                     token1 = this.getToken();
-                    this.addToken(new Exponent(token1, (Constant)token2));
+                    this.addToken(new Exponent(token1, token2));
                     break;
                 case ' ':
                     break;

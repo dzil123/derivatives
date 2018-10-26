@@ -1,9 +1,10 @@
-package dzil123;
+package dzil123.variable;
 
+import dzil123.*;
 
 public class X extends Variable {
     public X() {
-        this.repr = "x";
+        super("x");
     }
 
     public Derivable derive() {

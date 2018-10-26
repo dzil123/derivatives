@@ -1,13 +1,17 @@
-package dzil123;
+package dzil123.variable;
 
-public class VariableTerm extends Exponent{
-	// Variable base;
-	// Constant exponent;
+import java.util.*;
+
+import dzil123.*;
+import dzil123.operation.*;
+
+public class VariableTerm extends Derivable {
+	protected Variable base;
+	protected Constant exponent;
 
 	public VariableTerm(Variable base, Constant exponent) {
-		// this.base = base;
-		// this.exponent = exponent;
-		super(base, exponent);
+		this.base = base;
+		this.exponent = exponent;
 	}
 
 	private void changeExponent(int change) {
@@ -35,4 +39,24 @@ public class VariableTerm extends Exponent{
 	public String toString() {
 		return "(" + ((Variable)this.base).toString() + ")^(" + this.exponent + ")";
 	}
+	
+	public Derivable simplify() {
+		return new Exponent(this.base, this.exponent);
+	}
+	
+	public boolean isZero() {
+        return this.base.isZero() && !(this.exponent.isZero());
+    }
+
+    public boolean isOne() {
+        return this.exponent.isZero();
+    }
+	
+	public Derivable derive() {
+		return this.simplify().derive();
+	}
+	
+	public List<Variable> deChain() {
+        return this.simplify().deChain();
+    }
 }

@@ -1,16 +1,17 @@
 package dzil123;
 
+import dzil123.variable.Variable;
 
 public class Constant extends Variable {
-    double value;
+    public final double value;
 
     public Constant() {
         this(1);
     }
 
     public Constant(double value) {
+        super(Double.toString(value));
         this.value = value;
-        this.repr = Double.toString(value);
     }
 
     public Derivable derive() {

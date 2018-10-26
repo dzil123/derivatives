@@ -1,11 +1,12 @@
-package dzil123;
+package dzil123.helpers;
 
 import java.lang.reflect.*;
-import java.util.Arrays;
+
+import dzil123.*;
 
 public abstract class Associative extends Derivable {
-    Derivable term1;
-    Derivable term2;
+    public final Derivable term1;
+    public final Derivable term2;
 
     public Associative(Derivable term1, Derivable term2) {
         this.term1 = term1;
