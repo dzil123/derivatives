@@ -50,19 +50,11 @@ public class Sum extends Associative {
 	}
 
 	public List<Variable> deChain() {
-		Derivable simple = this.simplify();
-		if (!(simple instanceof Sum)) {
-			return simple.deChain();
+		Derivable simplification = this.simplify();
+		if (!(simplification instanceof Sum)) {
+			return simplification.deChain();
 		}
 
-		System.out.println(term1);
-
-		Monomial term1 = new Monomial (this.term1);
-		Monomial term2 = new Monomial (this.term2);
-
-		System.out.println(term1.simplify());
-		System.out.println(term2.simplify());
-
-		throw new RuntimeException();
+		throw new RuntimeException(); // TODO
 	}
 }
