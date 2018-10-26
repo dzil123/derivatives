@@ -17,12 +17,15 @@ public abstract class Derivable {
 
 
 	public boolean equals(Derivable other) {
-		Boolean test1 = this.equal(other);
+		Derivable thisSimple = this.simplify();
+		Derivable otherSimple = other.simplify();
+		
+		Boolean test1 = thisSimple.equal(otherSimple);
 		if (test1 != null) {
 			return test1;
 		}
 
-		Boolean test2 = other.equal(this);
+		Boolean test2 = otherSimple.equal(thisSimple);
 		if (test2 != null) {
 			return test2;
 		}
