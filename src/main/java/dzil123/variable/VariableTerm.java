@@ -41,7 +41,7 @@ public class VariableTerm extends Derivable {
 	}
 	
 	public Derivable simplify() {
-		return new Exponent(this.base, this.exponent);
+		return new Exponent(this.base, this.exponent).simplify();
 	}
 	
 	public boolean isZero() {
