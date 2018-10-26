@@ -32,8 +32,19 @@ public class Product extends Associative {
 		return new Sum(new Product(this.term2, term1deriv), new Product(this.term1, term2deriv)).simplify();
 	}
 
-	private static Derivable simplifySum(Sum sum, Derivable term) {
-		return new Product(sum.simplify(), term.simplify()); // TODO do the a(u+v) = a*u + a*v
+	private static Derivable simplifyAssociative(Associative associative, Derivable term) {
+		Derivable term1 = new Product(term, associative.term1); // a(u+v) = a*u + a*v
+		Derivable term2 = new Product(term, associative.term2);
+		Derivable result = null;
+		
+		if (associative instanceof Product) {
+			result = new Product(term1, term2);
+		} else if (associative instanceof Sum) {
+			result = new Sum(term1, term2);
+		} else {
+			throw new RuntimeException();
+		}
+		return result.simplify();
 	}
 	
 	
@@ -51,10 +62,10 @@ public class Product extends Associative {
 			return new Constant( ((Constant)term1).value * ((Constant)term2).value );
 		} else if (term1.equals(term2)) {
 			// return new Exponent(this.term1.simplify(), new Constant(2)); // lol Product.simplify() returns Exponent, Exponent.simplify() returns Product
-		} else if (term1 instanceof Sum) {
-			return Product.simplifySum((Sum)term1, term2);
-		} else if (term2 instanceof Sum) {
-			return Product.simplifySum((Sum)term2, term1);
+		} else if (term1 instanceof Associative) {
+			return Product.simplifyAssociative((Associative)term1, term2);
+		} else if (term2 instanceof Associative) {
+			return Product.simplifyAssociative((Associative)term2, term1);
 		}
 
 		return new Product(term1, term2);
