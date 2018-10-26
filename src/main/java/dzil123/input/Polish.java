@@ -17,7 +17,7 @@ public class Polish {
 		return tokens.peek();
 	}
 
-	public void parseTokenLoop(Scanner input) {
+	public Derivable parseTokenLoop(Scanner input) {
 		while (true) {
 			//System.out.print("Enter> ");
 			String token = input.next();
@@ -27,6 +27,8 @@ public class Polish {
 
 			this.parseToken(token);
 		}
+		
+		return this.getResult();
 	}
 
 	public void parseToken(String token) {
@@ -55,6 +57,11 @@ public class Polish {
 					token2 = this.getToken();
 					token1 = this.getToken();
 					this.addToken(new Exponent(token1, token2));
+					break;
+				case '/':
+					token2 = this.getToken();
+					token1 = this.getToken();
+					this.addToken(new Quotient(token1, token2));
 					break;
 				case ' ':
 					break;
