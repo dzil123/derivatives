@@ -50,7 +50,8 @@ public class Product extends Associative {
 		Derivable result = null;
 		
 		if (associative instanceof Product) {
-			result = new Product(term1, term2);
+			//result = new Product(term1, term2);
+			return new Product(associative, term);
 		} else if (associative instanceof Sum) {
 			result = new Sum(term1, term2);
 		} else {
@@ -72,7 +73,7 @@ public class Product extends Associative {
 			return term1;
 		} else if ( (term1 instanceof Constant) && (term2 instanceof Constant)) {
 			return new Constant( ((Constant)term1).value * ((Constant)term2).value );
-		} else if (term1.equals(term2)) {
+		// } else if (term1.equals(term2)) {
 			// return new Exponent(this.term1.simplify(), new Constant(2)); // lol Product.simplify() returns Exponent, Exponent.simplify() returns Product
 		} else if (term1 instanceof Associative) {
 			return Product.simplifyAssociative((Associative)term1, term2);
