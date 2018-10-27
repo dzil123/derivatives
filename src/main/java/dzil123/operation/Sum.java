@@ -42,10 +42,20 @@ public class Sum extends Associative {
 	}
 
 	public boolean isZero() {
-		return this.term1.isZero() && this.term1.isZero(); // TODO more complex analysis
+		Derivable simplification = this.simplify();
+		if (!(simplification instanceof Sum)) {
+			return simplification.isZero();
+		}
+		
+		return this.term1.isZero() && this.term1.isZero();
 	}
 
 	public boolean isOne() {
+		Derivable simplification = this.simplify();
+		if (!(simplification instanceof Sum)) {
+			return simplification.isOne();
+		}
+		
 		return ( (this.term1.isOne() && this.term2.isZero()) || (this.term2.isOne() && this.term1.isZero()) );
 	}
 

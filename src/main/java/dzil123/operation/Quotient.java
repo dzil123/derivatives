@@ -23,10 +23,20 @@ public class Quotient extends Derivable {
 	}
 	
 	public boolean isZero() {
+		Derivable simplification = this.simplify();
+		if (!(simplification instanceof Quotient)) {
+			return simplification.isZero();
+		}
+		
 		return this.top.isZero();
 	}
 	
 	public boolean isOne() {
+		Derivable simplification = this.simplify();
+		if (!(simplification instanceof Quotient)) {
+			return simplification.isOne();
+		}
+		
 		return this.top.equals(this.bottom);
 	}
 	

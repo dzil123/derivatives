@@ -23,25 +23,21 @@ public class Exponent extends Derivable {
 	}
 
 	public boolean isZero() {
-		boolean zero = this.base.isZero() && !(this.exponent.isZero());
-		if (!zero) {
-			Derivable simplification = this.simplify();
-			if (! (simplification instanceof Exponent) ) {
-				zero = simplification.isZero();
-			}
+		Derivable simplification = this.simplify();
+		if (!(simplification instanceof Exponent)) {
+			return simplification.isZero();
 		}
-		return zero;
+		
+		return this.base.isZero() && !(this.exponent.isZero());
 	}
 
 	public boolean isOne() {
-		boolean one = this.base.isOne() || this.exponent.isZero();
-		if (!one) {
-			Derivable simplification = this.simplify();
-			if (! (simplification instanceof Exponent) ) {
-				one = simplification.isOne();
-			}
+		Derivable simplification = this.simplify();
+		if (!(simplification instanceof Exponent)) {
+			return simplification.isOne();
 		}
-		return one;
+		
+		return this.base.isOne() || this.exponent.isZero();
 	}
 
 	public Derivable derive() {

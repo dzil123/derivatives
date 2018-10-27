@@ -76,10 +76,20 @@ public class Product extends Associative {
 	}
 
 	public boolean isZero() {
+		Derivable simplification = this.simplify();
+		if (!(simplification instanceof Product)) {
+			return simplification.isZero();
+		}
+		
 		return this.term1.isZero() || this.term2.isZero();
 	}
 
 	public boolean isOne() {
+		Derivable simplification = this.simplify();
+		if (!(simplification instanceof Product)) {
+			return simplification.isOne();
+		}
+		
 		return this.term1.isOne() && this.term2.isOne();
 	}
 
