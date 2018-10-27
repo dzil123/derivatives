@@ -79,10 +79,16 @@ public class Quotient extends Derivable {
 			return simplification.derive();
 		}
 		
+		// (uv'-vu')/(v^2)
 		Derivable top = ((Quotient) simplification).top;
 		Derivable bottom = ((Quotient) simplification).bottom;
 		
-		throw new RuntimeException(); // TODO (uv'-vu')/(v^2)
+		Derivable left = new Product(bottom, top.derive());
+		Derivable right = Product.chain(new Derivable[] {new Constant(-1), top, bottom.derive()});
+		Derivable newTop = new Sum(left, right);
+		Derivable newBottom = new Exponent(bottom, new Constant(2));
+		Derivable result = new Quotient(newTop, newBottom);
+		return result;
 	}
 	
 	public List<Variable> deChain() {
