@@ -16,10 +16,18 @@ public class Product extends Associative {
 	}
 
 	public Derivable derive() {
+		Derivable simplification = this.simplify();
+		if (!(simplification instanceof Product)) {
+			return simplification.derive();
+		}
+		
+		Derivable term1 = ((Product) simplification).term1;
+		Derivable term2 = ((Product) simplification).term2;
+		
 		// Product rule: (uv)' = (uv') + (vu')
 		
-		Derivable term1deriv = this.term1.derive();
-		Derivable term2deriv = this.term2.derive();
+		Derivable term1deriv = term1.derive();
+		Derivable term2deriv = term2.derive();
 		
 		// if ( (this.term1.isZero() || term2deriv.isZero()) && (this.term2.isZero() || term1deriv.isZero()) ) {
 		//     return new Constant(0);
@@ -28,8 +36,12 @@ public class Product extends Associative {
 		// } else if ( (this.term2.isZero() || term1deriv.isZero()) ) {
 		//     return new Product(this.term1, term2deriv);
 		// }
+		
+		Product left = new Product(term2, term1deriv);
+		Product right = new Product(term1, term2deriv);
+		Sum sum = new Sum(left, right);
 
-		return new Sum(new Product(this.term2, term1deriv), new Product(this.term1, term2deriv)).simplify();
+		return sum.simplify();
 	}
 
 	private static Derivable simplifyAssociative(Associative associative, Derivable term) {

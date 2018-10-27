@@ -16,8 +16,19 @@ public class Sum extends Associative {
 	}
 
 	public Derivable derive() {
-		// Product rule: (uv)' = (uv') + (vu')
-		return new Sum(this.term1.derive(), this.term2.derive()).simplify();
+		Derivable simplification = this.simplify();
+		if (!(simplification instanceof Sum)) {
+			return simplification.derive();
+		}
+		
+		// Sum rule: (u+v)' = u' + v'
+		
+		Derivable term1 = ((Sum) simplification).term1;
+		Derivable term2 = ((Sum) simplification).term2;
+		Sum sum = new Sum(this.term1.derive(), this.term2.derive());
+		
+		return sum.simplify();
+		
 	}
 
 	public String toString() {

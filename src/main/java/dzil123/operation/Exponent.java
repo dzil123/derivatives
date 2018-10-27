@@ -46,14 +46,15 @@ public class Exponent extends Derivable {
 			return simplification.derive();
 		}
 		
-		Derivable exponent = ((Exponent)simplification).exponent;
-		Derivable base = ((Exponent)simplification).base;
+		Derivable exponent = ((Exponent) simplification).exponent;
+		Derivable base = ((Exponent) simplification).base;
 		
 		if (exponent instanceof Constant) { // (u^n)' = n * u^(n-1)* u'
 			Constant constExponent = (Constant) exponent;
 			Exponent term2 = new Exponent(base, new Constant(constExponent.value - 1));
 			Derivable[] terms = {constExponent, term2.simplify(), base.derive()};
-			return Product.chain(terms);
+			
+			return Product.chain(terms).simplify();
 		} else if (base instanceof Constant) { // TODO (a^u)' = ln(a) * a^u * u'
 			throw new RuntimeException();
 		} else { // TODO x^x or other u^v

@@ -75,11 +75,14 @@ public class Quotient extends Derivable {
 	
 	public Derivable derive() {
 		Derivable simplification = this.simplify();
-		if (simplification instanceof Quotient) {
-			throw new RuntimeException(); // TODO (uv'-vu')/(v^2)
+		if (!(simplification instanceof Quotient)) {
+			return simplification.derive();
 		}
 		
-		return simplification.derive();
+		Derivable top = ((Quotient) simplification).top;
+		Derivable bottom = ((Quotient) simplification).bottom;
+		
+		throw new RuntimeException(); // TODO (uv'-vu')/(v^2)
 	}
 	
 	public List<Variable> deChain() {
