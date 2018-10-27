@@ -63,6 +63,12 @@ public class Polish {
 					token1 = this.getToken();
 					this.addToken(new Quotient(token1, token2));
 					break;
+				case '-':
+					token2 = this.getToken();
+					token1 = this.getToken();
+					token2 = new Product(new Constant(-1), token1);
+					this.addToken(new Sum(token1, token2));
+					break;
 				case ' ':
 					break;
 				default:
