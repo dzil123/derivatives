@@ -67,7 +67,7 @@ public class Quotient extends Derivable {
 			if (!result) {
 				// TODO
 			}
-			return true;
+			return result;
 		}
 		
 		return null;

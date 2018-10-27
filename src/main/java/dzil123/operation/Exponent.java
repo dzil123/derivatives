@@ -42,30 +42,51 @@ public class Exponent extends Derivable {
 
 	public Derivable derive() {
 		Derivable simplification = this.simplify();
-		if (simplification instanceof Exponent) {
-			throw new RuntimeException(); // TODO a^u
+		if (!(simplification instanceof Exponent)) {
+			return simplification.derive();
 		}
 		
-		return simplification.derive();
+		Derivable exponent = ((Exponent)simplification).exponent;
+		Derivable base = ((Exponent)simplification).base;
+		
+		if (exponent instanceof Constant) { // (u^n)' = n * u^(n-1)* u'
+			Constant constExponent = (Constant) exponent;
+			Exponent term2 = new Exponent(base, new Constant(constExponent.value - 1));
+			Derivable[] terms = {constExponent, term2.simplify(), base.derive()};
+			return Product.chain(terms);
+		} else if (base instanceof Constant) { // TODO (a^u)' = ln(a) * a^u * u'
+			throw new RuntimeException();
+		} else { // TODO x^x or other u^v
+			throw new RuntimeException();
+		}
 	}
 
 	public Derivable simplify() {
-		Derivable simplification = null;
 		Derivable exponent = this.exponent.simplify();
 		Derivable base = this.base.simplify();
 		
 		if (exponent.isZero()) {
-			simplification = new Constant(1);
+			return new Constant(1);
+		} else if (exponent.isOne()) {
+			return base.simplify();
+		} else if (base.isZero()) {
+			return new Constant(0);
+		} else if (base.isOne()) {
+			return new Constant(1);
 		} else if (exponent instanceof Constant) {
 			Constant constExponent = (Constant)exponent;
-			Derivable[] terms = new Derivable[(int)(constExponent.value)];
-			Arrays.fill(terms, this.base.simplify());
-			simplification = Product.chain(terms);
-		} else if (base instanceof Constant) {
-			return new Exponent(base, exponent);
+			if (base instanceof Constant) {
+				Constant constBase = (Constant)base;
+				return new Constant(Math.pow(constBase.value, constExponent.value));
+			}
+			if (constExponent.value == Math.rint(constExponent.value)) { // Test if double == int; equivalent to x == Math.floor(x)
+				Derivable[] terms = new Derivable[(int)(constExponent.value)];
+				Arrays.fill(terms, this.base.simplify());
+				return Product.chain(terms).simplify();
+			}
 		}
 		
-		return simplification.simplify();
+		return new Exponent(base, exponent);
 	}
 
 	public List<Variable> deChain() {
@@ -86,7 +107,7 @@ public class Exponent extends Derivable {
 			if (!result) {
 				// TODO
 			}
-			return true;
+			return result;
 		}
 		
 		return null;
