@@ -102,13 +102,14 @@ public class Exponent extends Derivable {
 	public Boolean equal(Derivable other) {
 		if (other instanceof Exponent) {
 			Exponent exp = (Exponent) other;
+			
 			boolean baseE = this.base.equals(exp.base);
 			boolean exponentE =  this.exponent.equals(exp.exponent);
-			boolean result = baseE && exponentE;
-			if (!result) {
-				// TODO
+			
+			if (baseE && exponentE) {
+				return true;
 			}
-			return result;
+			
 		}
 		
 		return null;

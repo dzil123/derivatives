@@ -58,5 +58,9 @@ public class VariableTerm extends Derivable {
 	
 	public List<Variable> deChain() {
         return this.simplify().deChain();
-    }
+	}
+	
+	public Boolean equal(Derivable other) {
+		return this.simplify().equals(other);
+	}
 }

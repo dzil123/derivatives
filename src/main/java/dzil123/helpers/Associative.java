@@ -42,4 +42,23 @@ public abstract class Associative extends Derivable {
 		
 		return null; // Won't run
 	}
+	
+	public Boolean equal(Derivable other) {
+		if (other instanceof Associative) {
+			Associative product = (Associative) other;
+			
+			Derivable t1 = this.term1;
+			Derivable t2 = this.term2;
+			Derivable o1 = product.term1;
+			Derivable o2 = product.term2;
+			
+			boolean p1 = t1.equals(o1) && t2.equals(o2);
+			boolean p2 = t1.equals(o2) && t2.equals(o1);
+			
+			if (p1 || p2) {
+				return true;
+			}
+		}
+		return null;
+	}
 }

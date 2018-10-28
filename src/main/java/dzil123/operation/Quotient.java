@@ -60,14 +60,13 @@ public class Quotient extends Derivable {
 	public Boolean equal(Derivable other) {
 		if (other instanceof Quotient) {
 			Quotient quo = (Quotient) other;
+			
 			boolean topE = this.top.equals(quo.top);
 			boolean bottomE = this.bottom.equals(quo.bottom);
-			boolean result = topE && bottomE;
 			
-			if (!result) {
-				// TODO
+			if (topE && bottomE) {
+				return true;
 			}
-			return result;
 		}
 		
 		return null;

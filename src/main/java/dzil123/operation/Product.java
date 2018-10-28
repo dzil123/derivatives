@@ -114,5 +114,4 @@ public class Product extends Associative {
 
 		return factors;
 	}
-
 }
