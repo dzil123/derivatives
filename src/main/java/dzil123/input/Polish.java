@@ -20,6 +20,10 @@ public class Polish {
 	public Derivable parseTokenLoop(Scanner input) {
 		while (true) {
 			//System.out.print("Enter> ");
+			if (!(input.hasNextLine())) {
+				break;
+			}
+			
 			String token = input.next();
 			if (token.charAt(0) == ';') {
 				break;

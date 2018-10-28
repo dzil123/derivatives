@@ -23,26 +23,14 @@ public class App {
 
 		derive(parser.getResult());
 	}
-
+	
 	public static void main(String[] args) {
-		String input = "x 3 ^ ;";
-
-		testParser(input);
+		Scanner input = new Scanner(System.in);
 		
-		// Constant a = new Constant(3);
-		// Constant b = new Constant(2);
-		// Constant c = new Constant(1);
-		// Constant d = new Constant(1);
-		// X x = new X();
-
-		// Exponent term1 = new Exponent(x, a);
-		// Exponent term2 = new Exponent(x, b);
-		// Exponent term3 = new Exponent(x, c);
-		// Constant term4 = d;
-
-		// Derivable equation = Sum.chain(new Derivable[]{term1, term2, term3, term4});
-
-		// derive(equation);
-
+		while (true) {
+			System.out.print("> ");
+			String userInput = input.nextLine();
+			testParser(userInput);
+		}
 	}
 }
