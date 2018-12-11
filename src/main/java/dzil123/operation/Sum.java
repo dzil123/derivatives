@@ -25,14 +25,14 @@ public class Sum extends Associative {
 		
 		Derivable term1 = ((Sum) simplification).term1;
 		Derivable term2 = ((Sum) simplification).term2;
-		Sum sum = new Sum(this.term1.derive(), this.term2.derive());
+		Sum sum = new Sum(term1.derive(), term2.derive());
 		
 		return sum.simplify();
 		
 	}
 
 	public String toString() {
-		return "(" + this.term1.toString() + "+" + this.term2.toString() + ")";
+		return "(" + this.term1.toString() + ")+(" + this.term2.toString() + ")";
 	}
 
 	public Derivable simplify() {

@@ -10,8 +10,29 @@ public class Product extends Associative {
 	public Product(Derivable term1, Derivable term2) {
 		super(term1, term2);
 	}
-
+	
+	public static Derivable[] simplifyTerms(Derivable[] terms) {
+		List<Derivable> list = new ArrayList<Derivable>();
+		double total = 1;
+		
+		for (Derivable item : terms) {
+			if (item instanceof Constant) {
+				Constant constant = (Constant) item;
+				total *= constant.value;
+			} else {
+				list.add(item);
+			}
+		}
+		
+		if (!(total == 1)) {
+			list.add(0, new Constant(total));
+		}
+		
+		return list.toArray(new Derivable[]{});
+	}
+	
 	public static Derivable chain(Derivable[] terms) {
+		//terms = Product.simplifyTerms(terms);
 		return chain(Product.class, terms);
 	}
 
@@ -51,7 +72,13 @@ public class Product extends Associative {
 		
 		if (associative instanceof Product) {
 			//result = new Product(term1, term2);
-			return new Product(associative, term);
+			try {
+				Derivable[] terms = (new Product(associative, term)).deChain().toArray(new Derivable[]{});
+				return Product.chain(Product.simplifyTerms(terms));
+				//throw new RuntimeException();
+			} catch (RuntimeException e) {
+				return new Product(associative, term);
+			}
 		} else if (associative instanceof Sum) {
 			result = new Sum(term1, term2);
 		} else {
@@ -85,7 +112,7 @@ public class Product extends Associative {
 	}
 
 	public String toString() {
-		return "(" + this.term1.toString() + "*" + this.term2.toString() + ")";
+		return "" + this.term1.toString() + "*" + this.term2.toString() + "";
 	}
 
 	public boolean isZero() {

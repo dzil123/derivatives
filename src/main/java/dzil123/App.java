@@ -27,10 +27,13 @@ public class App {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		
-		while (true) {
-			System.out.print("> ");
-			String userInput = input.nextLine();
-			testParser(userInput);
-		}
+		// while (true) {
+		// 	System.out.print("> ");
+		// 	String userInput = input.nextLine();
+		// 	testParser(userInput);
+		// }
+		
+		testParser("4 x * -1 1 + ^");
+		
 	}
 }

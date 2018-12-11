@@ -1,5 +1,7 @@
 package dzil123;
 
+import java.util.*;
+
 import dzil123.variable.Variable;
 
 public class Constant extends Variable {
@@ -55,5 +57,9 @@ public class Constant extends Variable {
 			return true;
 		}
 		return super.canSimplify(other);
+	}
+	
+	public List<Variable> deChain() {
+		return Arrays.asList(this);
 	}
 }

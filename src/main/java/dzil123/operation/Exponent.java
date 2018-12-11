@@ -81,9 +81,17 @@ public class Exponent extends Derivable {
 				return new Constant(Math.pow(constBase.value, constExponent.value));
 			}
 			if (constExponent.value == Math.rint(constExponent.value)) { // Test if double == int; equivalent to x == Math.floor(x)
-				Derivable[] terms = new Derivable[(int)(constExponent.value)];
+				int amount = (int)(constExponent.value);
+				
+				Derivable[] terms = new Derivable[Math.abs(amount)];
 				Arrays.fill(terms, this.base.simplify());
-				return Product.chain(terms).simplify();
+				Derivable finalTerm = Product.chain(terms).simplify();
+				
+				if (amount < 0) {
+					finalTerm = new Quotient(new Constant(1), finalTerm); // Inverse
+				}
+				
+				return finalTerm;
 			}
 		}
 		
